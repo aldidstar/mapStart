@@ -1,0 +1,66 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@googlemaps/js-api-loader": "^1.12.5",
+    "@mitevpi/algos": "^0.2.0",
+    "@mitevpi/v3": "^0.3.0",
+    "apexcharts": "^3.27.3",
+    "axios": "^0.21.1",
+    "chart.js": "^3.5.0",
+    "core-js": "^3.6.5",
+    "d3": "^7.0.0",
+    "d3-array": "^3.0.1",
+    "d3-scale": "^4.0.0",
+    "d3-selection": "^3.0.0",
+    "d3-transition": "^3.0.1",
+    "dotenv": "^10.0.0",
+    "google-maps": "^4.3.3",
+    "google-maps-api-loader": "^1.1.1",
+    "googlemaps-vue3": "^2.0.4",
+    "haversine-distance": "^1.2.1",
+    "jquery": "^3.6.0",
+    "vue": "^3.0.0",
+    "vue-chartjs": "^3.5.1",
+    "vue-google-charts": "^0.3.3",
+    "vue-router": "^4.0.10",
+    "vue2-google-maps": "^0.10.7",
+    "vue3-apexcharts": "^1.4.1",
+    "vue3-google-map": "^0.8.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "^4.5.13",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
