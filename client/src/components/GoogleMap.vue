@@ -31,8 +31,18 @@
       :draggable="true"
     />
     <CustomControl position="BOTTOM_CENTER">
-      <button class="custom-btn" @click="sayHi">
+      <button id="custom-stop" @click="stop">
+        <i class="fas fa-stop"></i>
+      </button>
+    </CustomControl>
+    <CustomControl position="BOTTOM_CENTER">
+      <button id="custom-play" @click="play">
         <i class="fas fa-play"></i>
+      </button>
+    </CustomControl>
+    <CustomControl position="BOTTOM_CENTER">
+      <button id="custom-pause" @click="pause">
+        <i class="fas fa-pause"></i>
       </button>
     </CustomControl>
   </GoogleMap>
@@ -48,12 +58,16 @@ export default {
   components: { GoogleMap, Marker, Polyline, CustomControl },
 
   data() {
-    const sayHi = () => alert(Marker);
+    const pause = () => alert("pause");
+    const stop = () => ((this.markers = []), (this.labels = []));
+    const play = () => this.load();
     return {
       center: { lat: -6.923738, lng: 107.688646 },
       markers: [],
       labels: [],
-      sayHi,
+      stop,
+      play,
+      pause,
     };
   },
   mounted() {
@@ -81,6 +95,9 @@ export default {
               });
             }, 10000);
           }
+          // document.getElementByClass("custom-pause").click(function() {
+          //   alert("Handler for .click() called.");
+          // });
           res.data.forEach((item) => {
             setInterval(() => {
               dist.value += 0.001916;
@@ -107,7 +124,43 @@ export default {
 </script>
 
 <style scoped>
-.custom-btn {
+#custom-stop {
+  box-sizing: border-box;
+  background: white;
+  height: 40px;
+  width: 40px;
+  border-radius: 2px;
+  border: 0px;
+  margin: 10px;
+  padding: 0px;
+  font-size: 1.25rem;
+  text-transform: none;
+  appearance: none;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  overflow: hidden;
+}
+
+#custom-play {
+  box-sizing: border-box;
+  background: white;
+  height: 40px;
+  width: 40px;
+  border-radius: 2px;
+  border: 0px;
+  margin: 10px;
+  padding: 0px;
+  font-size: 1.25rem;
+  text-transform: none;
+  appearance: none;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  overflow: hidden;
+}
+
+#custom-pause {
   box-sizing: border-box;
   background: white;
   height: 40px;
