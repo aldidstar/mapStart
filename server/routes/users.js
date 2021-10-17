@@ -48,11 +48,10 @@ router.post("/register", async function (req, res, next) {
         });
 
         res.status(201).json({
-         data: {
+          data: {
+            email: user.email,
+          },
 
-           email: user.email
-         },
-          
           token: token,
         });
       } catch (err) {
@@ -99,10 +98,9 @@ router.post("/login", async function (req, res) {
 
         res.status(201).json({
           data: {
-
-            email: user.email
+            email: user.email,
           },
-          token: token
+          token: token,
         });
       } catch (err) {
         res.status(500).json({ err });
@@ -139,7 +137,6 @@ router.get("/destroy/:id", function (req, res, next) {
   })
     .then((user) => {
       res.status(201).json({
-        
         logout: true,
       });
     })
