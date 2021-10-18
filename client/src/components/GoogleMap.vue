@@ -46,16 +46,30 @@
       </button>
     </CustomControl>
   </GoogleMap>
+  <div id="chart">
+    <apexchart
+      type="line"
+      height="350"
+      :options="chartOptions"
+      :series="series"
+    ></apexchart>
+  </div>
 </template>
 
 <script>
 import axios from "axios";
-
+import VueApexCharts from "vue3-apexcharts";
 import { GoogleMap, Marker, Polyline, CustomControl } from "vue3-google-map";
 import { ref } from "vue";
 
 export default {
-  components: { GoogleMap, Marker, Polyline, CustomControl },
+  components: {
+    GoogleMap,
+    Marker,
+    Polyline,
+    CustomControl,
+    apexchart: VueApexCharts,
+  },
 
   data() {
     const pause = () => alert("pause");
@@ -68,10 +82,45 @@ export default {
       stop,
       play,
       pause,
+      series: [
+        {
+          name: "Desktops",
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 148],
+        },
+      ],
+      chartOptions: {
+        chart: {
+          height: 350,
+          type: "line",
+          zoom: {
+            enabled: false,
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: "straight",
+        },
+        title: {
+          text: "Product Trends by Month",
+          align: "left",
+        },
+        grid: {
+          row: {
+            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+            opacity: 0.5,
+          },
+        },
+        xaxis: {
+          categories: ["1", "2", "3", "4", "5"],
+        },
+      },
     };
   },
   mounted() {
     this.load();
+    this.loadChart();
   },
   methods: {
     load() {
@@ -95,9 +144,7 @@ export default {
               });
             }, 10000);
           }
-          // document.getElementByClass("custom-pause").click(function() {
-          //   alert("Handler for .click() called.");
-          // });
+
           res.data.forEach((item) => {
             setInterval(() => {
               dist.value += 0.001916;
@@ -111,13 +158,66 @@ export default {
               this.markers.push({
                 lat: item.lat + dist.value,
                 lng: item.lng,
-                title: `60 m/s`,
+                title: `${item.speed} m/s`,
                 label: item.title,
                 icon: "https://maps.google.com/mapfiles/kml/pal4/icon15.png",
               });
             }, 10000);
           });
         });
+    },
+
+    loadChart() {
+      axios
+        .get("http://localhost:3000/maps", {
+          headers: {
+            "x-access-token": localStorage.getItem("token"),
+          },
+        })
+        .then(
+          function(res) {
+            let speed = [];
+
+            res.data.forEach((item) => {
+              speed.push(item.speed);
+            });
+
+            (this.series = [
+              {
+                name: "Desktops",
+                data: speed,
+              },
+            ]),
+              (this.chartOptions = {
+                chart: {
+                  height: 350,
+                  type: "line",
+                  zoom: {
+                    enabled: false,
+                  },
+                },
+                dataLabels: {
+                  enabled: false,
+                },
+                stroke: {
+                  curve: "straight",
+                },
+                title: {
+                  text: "Speed",
+                  align: "left",
+                },
+                grid: {
+                  row: {
+                    colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+                    opacity: 0.5,
+                  },
+                },
+                xaxis: {
+                  categories: "T",
+                },
+              });
+          }.bind(this)
+        );
     },
   },
 };

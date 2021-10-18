@@ -6,7 +6,8 @@ const mapSchema = new Schema(
   {
     title: String,
     lat: Number,
-    lng: Number
+    lng: Number,
+    speed: Number,
   },
   {
     timestamps: true,
@@ -36,7 +37,5 @@ const mapSchema = new Schema(
 //     cb(null, isMatchPassword);
 //   });
 // };
-
-
 
 module.exports = model("Map", mapSchema);
